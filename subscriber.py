@@ -42,8 +42,8 @@ def rand_mac():
 
 #Insertar smartphone
 def insert_smartphone(smartphone):
+    macaddress=rand_mac()
     with conn, conn.cursor() as cur:
-        macaddress=rand_mac()
         cur.execute('''
             INSERT INTO smartphone(id, macaddress)
             VALUES(%s,%s);
@@ -53,47 +53,52 @@ def insert_smartphone(smartphone):
 def insert_camara_access(data):
     with conn, conn.cursor() as cur:
         query='''
-            INSERT INTO accesoentrada(sexo, edad, fechaacceso, idpuerta, idcamara)
-            VALUES(%s,%s,%s,%s,%s);
+            INSERT INTO accesoentrada(sexo, edad, fechaacceso, idpuerta)
+            VALUES(%s,%s,%s,%s);
         '''
-        cur.execute(query,(data["sexo"],data["edad"],data["fechaacceso"],data["idpuerta"],data["idcamara"]))
+        cur.execute(query,(data["sexo"],data["edad"],data["fechaacceso"],data["idpuerta"]))
 
 #Iniciar nueva estadía
 def insert_new_estadia(data):
     with conn, conn.cursor() as cur:
         query='''
-            INSERT INTO estadia(idbeaconentrada, idsmartphone, fechaentrada, idpuertaentrada)
-            VALUES(%s,%s,%s,%s);
+            INSERT INTO estadia(idsmartphone, fechaentrada, idpuertaentrada)
+            VALUES(%s,%s,%s);
         '''
-        cur.execute(query,(data["idbeaconetrada"],data["idsmartphone"],data["fechaentrada"],data["idpuertaentrada"]))
+        cur.execute(query,(data["idsmartphone"],data["fechaentrada"],data["idpuertaentrada"]))
 
 #Finaliza una estadia
 def finish_estadia(data):
     with conn, conn.cursor() as cur:
         query='''
             UPDATE estadia 
-            SET idbeaconsalida=%s, fechasalida=%s, idpuertasalida=%s
-            WHERE idsmartphone=%s AND fechasalida IS NULL;
+            SET fechasalida=%s, idpuertasalida=%s
+            WHERE id = (
+                SELECT id FROM estadia
+                WHERE idsmartphone=%s AND fechasalida IS NULL
+                ORDER BY fechaentrada DESC
+                LIMIT 1
+            );
         '''
-        cur.execute(query,(data["idbeaconsalida"],data["fechasalida"],data["idpuertasalida"],data["idsmartphone"]))
+        cur.execute(query,(data["fechasalida"],data["idpuertasalida"],data["idsmartphone"]))
 
 #Inserta flujo por una tienda
 def insert_camara_local(data):
     with conn, conn.cursor() as cur:
         query='''
-            INSERT INTO accesolocal (sexo, edad, fechaacceso, idcamara, idlocal)
-            VALUES (%s,%s,%s,%s,%s);
+            INSERT INTO accesolocal (sexo, edad, fechaacceso, idlocal)
+            VALUES (%s,%s,%s,%s);
         '''
-        cur.execute(query,(data["sexo"],data["edad"],data["fechaacceso"],data["idcamara"],data["idlocal"]))
+        cur.execute(query,(data["sexo"],data["edad"],data["fechaacceso"],data["idlocal"]))
 
 #Iniciar nueva estadía en una tienda
 def insert_new_recorrido(data):
     with conn, conn.cursor() as cur:
         query='''
-            INSERT INTO recorrido(idsmartphone, idlocal, idbeacon, fechaentrada)
-            VALUES(%s,%s,%s,%s);
+            INSERT INTO recorrido(idsmartphone, idlocal, fechaentrada)
+            VALUES(%s,%s,%s);
         '''
-        cur.execute(query,(data["idsmartphone"],data["idlocal"],data["idbeacon"],data["fechaentrada"]))
+        cur.execute(query,(data["idsmartphone"],data["idlocal"],data["fechaentrada"]))
 
 #Finalizar una estadía en una tienda
 def finish_recorrido(data):
@@ -101,9 +106,14 @@ def finish_recorrido(data):
         query='''
             UPDATE recorrido
             SET fechasalida=%s
-            WHERE idsmartphone=%s AND idlocal=%s AND idbeacon=%s AND fechasalida IS NULL;
+            WHERE id = ( 
+                SELECT id FROM recorrido 
+                WHERE idsmartphone=%s AND idlocal=%s AND fechasalida IS NULL 
+                ORDER BY fechaentrada DESC
+                LIMIT 1
+            );
         '''
-        cur.execute(query,(data["fechasalida"],data["idsmartphone"],data["idlocal"],data["idbeacon"]))
+        cur.execute(query,(data["fechasalida"],data["idsmartphone"],data["idlocal"]))
 
 #Insertar una nueva factura
 def insert_new_factura(data):
@@ -126,16 +136,10 @@ def insert_new_factura(data):
 def insert_mesa_estado(data):
     with conn, conn.cursor() as cur:
         query='''
-            SELECT id FROM sensormesa
-            WHERE idmesa=%s;
+            INSERT INTO estadomesa(idmesa, fechaestado, ocupado)
+            VALUES(%s,%s,%s);
         '''
-        cur.execute(query,(str(data["idmesa"])))
-        sensor=cur.fetchone()
-        query='''
-            INSERT INTO estadomesa(idsensor, idmesa, fechaestado, ocupado)
-            VALUES(%s,%s,%s,%s);
-        '''
-        cur.execute(query,(sensor[0],data["idmesa"],data["fechaestado"],data["ocupado"]))
+        cur.execute(query,(data["idmesa"],data["fechaestado"],data["ocupado"]))
 
 #Insertar un nuevo monitoreo de mesa
 def start_mesa_ocupacion(data):
@@ -152,7 +156,12 @@ def finish_mesa_ocupacion(data):
         query='''
             UPDATE monitoreomesa
             SET fechadesocupado=%s
-            WHERE idmesa=%s AND idsmartphone=%s AND fechadesocupado IS NULL;
+            WHERE id = (
+                SELECT id FROM monitoreomesa 
+                WHERE idmesa=%s AND idsmartphone=%s AND fechadesocupado IS NULL
+                ORDER BY fechaocupado DESC
+                LIMIT 1
+            );
         '''
         cur.execute(query,(data["fechadesocupado"],data["idmesa"],data["idsmartphone"]))
 
