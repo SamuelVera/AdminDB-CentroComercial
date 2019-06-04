@@ -9,6 +9,13 @@ import random as r
 import json
 from faker import Faker
 
+##Selección de la fecha de la simulación
+dia=10
+mes=5
+a=2019
+fecha=dt.datetime(a, mes, dia, 10)
+
+
 ################################ Variables
 fake=Faker()
 existingSmartphones=[]
@@ -27,12 +34,6 @@ mesasOcupadas=[]
 clientesInMesas=[]
 clientesInLocales=[]
 salida=5
-    ##Selección de la fecha de la simulación
-dia=1
-mes=1
-a=2019
-fecha=dt.datetime(a, mes, dia, 10)
-
 
     #Tópicos de MQTT
 canalCamarasAcceso = "camarasAcceso/0"
@@ -268,7 +269,7 @@ def publish_factura(cliente, local, registradora):
     x={
         "cicomprador": cliente.ci,
         "idlocal": local.id,
-        "monto": np.random.normal(100,10),
+        "monto": r.randint(10,1000),
         "fechacompra": str(fechaAcceso),
         "idsmartphone": smartphone
     }
