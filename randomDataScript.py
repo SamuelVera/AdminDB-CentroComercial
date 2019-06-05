@@ -466,7 +466,7 @@ def recorrido_personas():
             
             cliente=clientesInCC.pop(i)
             puerta=puertasEmergencias[r.randint(1,len(puertasEmergencias))-1]
-            camara=camarasAcceso[r.randint(1,len(camarasAccesos))-1]
+            camara=camarasAcceso[r.randint(1,len(camarasAcceso))-1]
             minutes=r.randint(15,59)
             fecha=dt.datetime(fecha.year, fecha.month, fecha.day, fecha.hour, minutes)
             publish_salida_emergencia(cliente, puerta, camara, fecha)
