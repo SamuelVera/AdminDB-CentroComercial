@@ -9,11 +9,12 @@ import random as r
 import json
 
 ##Selección de la fecha de la simulación
-dia=10
+dia=1
 mes=5
 a=2019
 fecha=dt.datetime(a, mes, dia, 10)
-
+#Días que dura la simulación
+salida=10
 
 ################################ Estructuras auxiliares
 existingSmartphones=[]
@@ -32,7 +33,6 @@ mesas=[]
 clientesInMesas=[]
 clientesInLocales=[]
 smartphonesQtty=0
-salida=5
 
     #Tópicos de MQTT
 canalCamarasAcceso = "camarasAcceso/0"
@@ -334,7 +334,7 @@ def publish_salida_emergencia(cliente, puerta, camara, fecha):
     x={
         "sexo": cliente.sexo,
         "edad": cliente.edad,
-        "fechaAcceso": str(fecha),
+        "fechaacceso": str(fecha),
         "idpuerta": puerta.id,
     }
     y=json.dumps(x)
@@ -463,19 +463,22 @@ def recorrido_personas():
         decisionEmergencia = np.random.normal(0,1)
             #Salen por la puerta de emergencias un 3% de las veces
         if decisionEmergencia < -1.88:
+
+            print('Sale por la puerta de emergencia')
             
             cliente=clientesInCC.pop(i)
+            clientesOutOfCC.append(cliente)
             puerta=puertasEmergencias[r.randint(1,len(puertasEmergencias))-1]
             camara=camarasAcceso[r.randint(1,len(camarasAcceso))-1]
             minutes=r.randint(15,59)
-            fecha=dt.datetime(fecha.year, fecha.month, fecha.day, fecha.hour, minutes)
-            publish_salida_emergencia(cliente, puerta, camara, fecha)
+            fechaSalida=dt.datetime(fecha.year, fecha.month, fecha.day, fecha.hour, minutes)
+            publish_salida_emergencia(cliente, puerta, camara, fechaSalida)
             
             if cliente.id_smartphone != 0:                
                 minutes=r.randint(15,59)
-                fecha=dt.datetime(fecha.year, fecha.month, fecha.day, fecha.hour, minutes)
-                beacon=beaconsAcceso[r.randint(1,beaconsAcceso)-1]
-                publish_finish_estadia(beacon, cliente.id_smartphone, puerta, fecha)
+                fechaSalida=dt.datetime(fecha.year, fecha.month, fecha.day, fecha.hour, minutes)
+                beacon=beaconsAcceso[(r.randint(1,len(beaconsAcceso))-1)]
+                publish_finish_estadia(beacon, cliente.id_smartphone, puerta, fechaSalida)
 
         else:
             #Decide ocupar una mesa, ir a un local, salirse o no hacer nada
@@ -568,8 +571,8 @@ def salir_del_cc(i):
         #Beacon que detecta la salida
         beacon=beaconsAcceso[(r.randint(1,len(beaconsAcceso))-1)]
         minutes=r.randint(45,59)
-        fecha=dt.datetime(fecha.year, fecha.month, fecha.day, fecha.hour, minutes)
-        publish_finish_estadia(beacon, cliente.id_smartphone, puerta, fecha)
+        fechaSalida=dt.datetime(fecha.year, fecha.month, fecha.day, fecha.hour, minutes)
+        publish_finish_estadia(beacon, cliente.id_smartphone, puerta, fechaSalida)
         t.sleep(0.3)
 
 #Personas que están en mesas y deciden pararse
@@ -744,8 +747,8 @@ def check_salida():
                 #Beacon que detecta
                 beacon=beaconsAcceso[(r.randint(1,len(beaconsAcceso))-1)]
                 minutes=r.randint(45,59)
-                fecha=dt.datetime(fecha.year, fecha.month, fecha.day, fecha.hour, minutes)
-                publish_finish_estadia(beacon, cliente.id_smartphone, puerta, fecha)
+                fechaSalida=dt.datetime(fecha.year, fecha.month, fecha.day, fecha.hour, minutes)
+                publish_finish_estadia(beacon, cliente.id_smartphone, puerta, fechaSalida)
                 t.sleep(0.3)
             #Actualización de estructuras de datos
             clientesOutOfCC.append(cliente)
