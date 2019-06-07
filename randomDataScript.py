@@ -12,9 +12,8 @@ import json
 dia=1
 mes=1
 a=2019
+salida=0
 fecha=dt.datetime(a, mes, dia, 10)
-#Días que dura la simulación
-salida=1
 
 ################################ Estructuras auxiliares
 existingSmartphones=[]
@@ -23,7 +22,7 @@ beaconsAcceso=[]
 beaconsLocal=[]
 sensores=[]
 clientesInCC=[]
-clientesOutOfCC=[]cd ../../cd 
+clientesOutOfCC=[]
 camarasAcceso=[]
 camarasLocal=[]
 puertas=[]
@@ -80,7 +79,7 @@ def on_connect(client, userdata, flags, rc):
 def connect_to_db():
         #Conexión a la db
     global conn
-    conn = pg2.connect(host='localhost', dbname="sambilproyecto", user="postgres", password="1234")
+    conn = pg2.connect(host='localhost', dbname="Proyecto1CC", user="postgres", password="trino")
         #Cursor para operar
     global cur 
     cur = conn.cursor()
@@ -769,5 +768,16 @@ def main():
     simulacion()
 
 if __name__=='__main__':
-    main()
+ 
+    try:
+        while dia<=1 or dia>=15:
+           dia = int((input("Ingrese el dia en el cual desee iniciar la simulacion.")))
+        while mes<=1 or mes>=12:
+           mes = int((input("Ingrese el numero del mes en el cual desee para iniciar la simulacion.")))
+        while salida<=1 or salida>=10: 
+           salida = int((input("Ingrese la cantidad de dias que dure la simulacion.")))
+	fecha=dt.datetime(a, mes, dia, 10)
+        main()
+    except ValueError:
+         print("Solo se permiten valores enteros!")
     sys.exit(0)
