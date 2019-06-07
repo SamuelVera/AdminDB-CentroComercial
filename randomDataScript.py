@@ -10,11 +10,11 @@ import json
 
 ##Selección de la fecha de la simulación
 dia=1
-mes=5
+mes=1
 a=2019
 fecha=dt.datetime(a, mes, dia, 10)
 #Días que dura la simulación
-salida=10
+salida=1
 
 ################################ Estructuras auxiliares
 existingSmartphones=[]
@@ -23,7 +23,7 @@ beaconsAcceso=[]
 beaconsLocal=[]
 sensores=[]
 clientesInCC=[]
-clientesOutOfCC=[]
+clientesOutOfCC=[]cd ../../cd 
 camarasAcceso=[]
 camarasLocal=[]
 puertas=[]
