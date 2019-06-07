@@ -770,14 +770,17 @@ def main():
 if __name__=='__main__':
  
     try:
-        while dia<=1 or dia>=15:
-           dia = int((input("Ingrese el dia en el cual desee iniciar la simulacion.")))
-        while mes<=1 or mes>=12:
-           mes = int((input("Ingrese el numero del mes en el cual desee para iniciar la simulacion.")))
-        while salida<=1 or salida>=10: 
-           salida = int((input("Ingrese la cantidad de dias que dure la simulacion.")))
-	fecha=dt.datetime(a, mes, dia, 10)
+        dia = int((input("Ingrese el dia en el cual desee iniciar la simulacion: ")))
+        while dia<=0 or dia>=15:
+            dia = int((input("Ingrese un dia entre el 1 y el 15: ")))
+        mes = int((input("Ingrese el numero del mes en el cual desee iniciar la simulacion: ")))
+        while mes<=0 or mes>=13:
+            mes = int((input("Ingrese el numero del mes válido: ")))
+        salida = int((input("Ingrese la cantidad de dias que desea dure la simulacion: ")))
+        while salida<=0 or salida>=11:
+            salida = int((input("Ingrese una cantidad de dias entre 1 y 10: ")))
+        fecha=dt.datetime(a, mes, dia, 10)
         main()
     except ValueError:
-         print("Solo se permiten valores enteros!")
+         print("Error: Solo se permiten valores enteros!")
     sys.exit(0)
