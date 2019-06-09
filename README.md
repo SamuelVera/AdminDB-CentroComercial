@@ -26,7 +26,7 @@ Proyecto de Administración de Bases de Datos
 # NOTA:
 1. El día de simulación en la ejecución dura aproximadamente entre 3 minutos y medio y 4 minutos. Se pueden elegir hasta un máximo de 10 días de ejecucion.
 
-2. El archivo de jupyter notebook tiene una gráfica a tiempo real y correspondiente a la Vista Extra 6, si se ejecuta el código mientras corren los scripts de "suscriptor" y "generador de data" se puede apreciar mejor el funcionamiento de dicha gráfica.
+2. El archivo de jupyter notebook tiene una gráfica a tiempo real y correspondiente a la Vista Extra 3, si se ejecuta el código mientras corren los scripts de "suscriptor" y "generador de data" se puede apreciar mejor el funcionamiento de dicha gráfica.
 
 3. Las vistas correspondientes al último mes traen datos del mes de mayo de 2019.
 
