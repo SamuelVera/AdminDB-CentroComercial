@@ -1,7 +1,7 @@
 # AdminDB-CentroComercial
 Proyecto de Administración de Bases de Datos
 
-# Módulos a instalar
+# Módulos a instalar:
 
 1. matplotlib. `python -m pip install -U pip`
 2. pandas. `pip install pandas`
