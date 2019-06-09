@@ -1,6 +1,11 @@
 # AdminDB-CentroComercial
 Proyecto de Administración de Bases de Datos
 
+#Integrantes
+#Sabrina García
+#Juan Montenegro
+#Samuel Vera
+
 # Módulos a instalar:
 
 1. matplotlib. `python -m pip install -U pip`
