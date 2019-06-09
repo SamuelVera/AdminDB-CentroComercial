@@ -6,7 +6,6 @@ import sys
 import time as t
 import datetime as dt
 import random as r
-import json
 
 ##Selección de la fecha de la simulación
 dia=1
@@ -79,7 +78,7 @@ def on_connect(client, userdata, flags, rc):
 def connect_to_db():
         #Conexión a la db
     global conn
-    conn = pg2.connect(host='localhost', dbname="Proyecto1CC", user="postgres", password="trino")
+    conn = pg2.connect(host='localhost', dbname="sambilproyecto", user="postgres", password="1234")
         #Cursor para operar
     global cur 
     cur = conn.cursor()

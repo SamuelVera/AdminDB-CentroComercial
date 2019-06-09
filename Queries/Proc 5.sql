@@ -1,11 +1,11 @@
-CREATE OR REPLACE FUNCTION cantidadocupacionesmesa(id INTEGER, fecha TIMESTAMP)
-	RETURNS BIGINT AS $$
+CREATE OR REPLACE FUNCTION cantidadocupacionesmesa(mesa INTEGER, fecha DATE)
+RETURNS BIGINT AS $$
 	DECLARE
 		datum BIGINT;
 	BEGIN
 		SELECT COUNT(*) INTO datum
 			FROM estadomesa
-			WHERE idmesa=id
+			WHERE idmesa=mesa
 			AND ocupado=true
 			AND EXTRACT(DAY FROM fechaestado)=EXTRACT(DAY FROM fecha)
 			AND EXTRACT(MONTH FROM fechaestado)=EXTRACT(MONTH FROM fecha)
