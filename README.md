@@ -3,8 +3,8 @@ Proyecto de Administración de Bases de Datos
 
 # Integrantes
  Sabrina García
- Juan Montenegro
- Samuel Vera
+     Juan Montenegro
+     Samuel Vera
 
 # Módulos a instalar:
 
