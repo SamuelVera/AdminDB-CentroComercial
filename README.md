@@ -1,6 +1,6 @@
 # Data Capture of a Smart Shopping Center (Simulation)
 
-# Collaboratos
+# Collaborators
 
 1. Sabrina García (https://github.com/SabrinaGar).
 2. Juan Montenegro (https://github.com/ZetM).
