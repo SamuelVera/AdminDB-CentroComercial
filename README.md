@@ -1,5 +1,4 @@
-# AdminDB-CentroComercial
-Proyecto de Administración de Bases de Datos
+# Simulación de Captura de Datosde un Centro Comercial Inteligente
 
 # Integrantes
 1. Sabrina García
