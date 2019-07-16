@@ -19,7 +19,7 @@
 1. Clone the repository with `git clone https://github.com/SamuelVera/Data-Capture-Smart-Shopping-Center-Simulation.git`
 2. Restore the database with PostgreSQL and the file "sambilproyecto-backup.tar".
 3. Open Jupyter Notebook in the cloned repo folder with the cmd command `Jupyter Notebook`.
-4. Open the jupyter file "Notebook Jupyther.ipynb" in the Jupyter UI and change the database credentials in the second cell of code to the ones in your postgreSQL server.
+4. Open the jupyter file "Notebook Jupyter.ipynb" in the Jupyter UI and change the database credentials in the second cell of code to the ones in your postgreSQL server.
 5. Change the database credentials from the line 31 of the script "subcriber.py" and the line 82 of the script "randomDataScript.py" to the ones used in your postgreSQL server.
 6. Run the "subscriber.py" script and wait for the console message "Conexión exitosa".
 7. Run the "randomDataScript.py" script y follow the console instructions.
@@ -52,7 +52,7 @@
 
 1. Abra PgAdmin, cree una nueva Base de Datos, haga click derecho en "restore" y seleccione el archivo sambilproyecto-backup.tar. 
 2. Inicie jupyther notebook utilizando el comando `jupyter notebook` en la carpeta del repositorio.
-3. Haga click en el archivo Notebook Jupyther.ipynb y cambie las credenciales de conexión a la base de datos de la celda 2 de código por las correspondientes.
+3. Haga click en el archivo Notebook Jupyter.ipynb y cambie las credenciales de conexión a la base de datos de la celda 2 de código por las correspondientes.
 4. Además cambie las credenciales de la base de datos en los scripts de python. En el script randomDataScript.py en la linea 82 y en la linea 31 del script subscriber.py.
 5. Ejecute el script de subscripción subscriber.py ubicandose en la carpeta del proyecto. Espere a que por consola se le indique un mensaje que diga "Conexión exitosa".
 6. Ejecute el script de simulación de data random "randomDataScript.py" y siga las instrucciones que se le dan en la consola.
