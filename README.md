@@ -19,7 +19,7 @@
 1. Clone the repository with `git clone https://github.com/SamuelVera/Data-Capture-Smart-Shopping-Center-Simulation.git`
 2. Restore the database with PostgreSQL and the file "sambilproyecto-backup.tar".
 3. Open Jupyter Notebook in the cloned repo folder with the cmd command `Jupyter Notebook`.
-4. Open the jupyter file "Notebook Jupyther.ipynb" in the Jupyter UI and change the database credentials in the second cell code to the ones in your postgreSQL server.
+4. Open the jupyter file "Notebook Jupyther.ipynb" in the Jupyter UI and change the database credentials in the second cell of code to the ones in your postgreSQL server.
 5. Change the database credentials from the line 31 of the script "subcriber.py" and the line 82 of the script "randomDataScript.py" to the ones used in your postgreSQL server.
 6. Run the "subscriber.py" script and wait for the console message "Conexión exitosa".
 7. Run the "randomDataScript.py" script y follow the console instructions.
